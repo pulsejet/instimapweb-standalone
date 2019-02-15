@@ -7,18 +7,27 @@ body, html {
 #marker, #user-marker {
     height: 60px;
     transform: translateY(6px);
+    display: none;
+}
+
+.ol-overlay-container img {
+    display: block !important;
 }
 
 .map {
     height: 100vh;
     width: 100vw;
     margin: 0;
+    z-index: -100;
+    position: fixed;
+    top: 0; left: 0;
 }
 
 #searchbox {
     position: fixed;
     right: 40px; top: 40px;
     background: white;
+    z-index: -1;
 }
 
 .shadow {
@@ -38,7 +47,7 @@ body, html {
     right: 40px; top: 100px;
     background: white;
     width: 300px;
-    z-index: 0;
+    z-index: 1;
     opacity: 0;
     transition: opacity 200ms ease;
     display: none;
