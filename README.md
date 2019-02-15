@@ -1,6 +1,7 @@
 # InstiMap Web Standalone
 
 [![InstiApp](https://insti.app/instiapp-badge-gh.svg)](https://insti.app/map)
+[![Demo](https://img.shields.io/badge/demo-online-blueviolet.svg)](https://pulsejet.github.io/instimapweb-standalone/)
 [![License](https://img.shields.io/github/license/pulsejet/instimapweb.svg?style=flat)](https://github.com/pulsejet/instimapweb/blob/master/LICENSE.md)
 
 Standalone IIT Bombay's InstiMap in JavaScript.
