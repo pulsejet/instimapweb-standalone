@@ -1,0 +1,124 @@
+body, html {
+    margin: 0;
+    overflow: hidden;
+    background-color: #666;
+}
+
+#marker, #user-marker {
+    height: 60px;
+    transform: translateY(6px);
+}
+
+.map {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+}
+
+#searchbox {
+    position: fixed;
+    right: 40px; top: 40px;
+    background: white;
+}
+
+.shadow {
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+}
+
+#search {
+    padding: 15px 20px;
+    border: none;
+    width: 300px;
+}
+
+#infobox {
+    padding: 15px 20px;
+    box-sizing: border-box;
+    position: fixed;
+    right: 40px; top: 100px;
+    background: white;
+    width: 300px;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 200ms ease;
+    display: none;
+}
+
+#locfab {
+    position: fixed;
+    height: 50px; width: 50px;
+    right: 20px; bottom: 20px;
+    background: #ffd740;
+    border-radius: 50%;
+    transition: all 200ms ease;
+    padding: 0; margin: 0;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.locate {
+    margin: 15.5px;
+    height: 20px;
+}
+
+#locname {
+    font-size: 1.3em;
+    margin-bottom: 0.2em;
+}
+
+.algolia-autocomplete {
+    width: 100%;
+    z-index: 20;
+}
+.algolia-autocomplete .aa-input, .algolia-autocomplete .aa-hint {
+    width: 100%;
+}
+.algolia-autocomplete .aa-hint {
+    display: none;
+}
+.algolia-autocomplete .aa-dropdown-menu {
+    width: 100%;
+    background-color: #fff;
+    border-top: none;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 0 0 0 white, 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+    z-index: 20;
+}
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
+    cursor: pointer;
+    padding: 5px 10px;
+}
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
+    background-color: #eee;
+}
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion em {
+    font-weight: bold;
+    font-style: normal;
+}
+
+@media (max-width: 600px) {
+    #searchbox {
+        top: 20px;
+        width: 90vw;
+        right: 5vw;
+    }
+
+    #search {
+        width: 100vw;
+    }
+
+    #infobox {
+        width: 100vw;
+        right: 0vw;
+        top: calc(100% - 80px);
+        min-height: 100vh;
+        transition: all 200ms ease;
+    }
+
+    #infobox.expanded {
+        transform: translateY(calc(-100% + 80px));
+    }
+
+    #locfab.translate {
+        transform: translateY(-80px);
+    }
+}
