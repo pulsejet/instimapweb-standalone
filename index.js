@@ -21,8 +21,7 @@ var fuse_options = {
   };
 
 function locSearch(query, cb) {
-    results = fuse.search(query).slice(0, 10);
-    cb(results)
+    cb(fuse.search(query).slice(0, 10))
 }
 
 autocomplete('#search', { hint: true }, [
