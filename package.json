@@ -4,7 +4,8 @@
   "description": "Standalone Web InstiMap",
   "main": "index.js",
   "scripts": {
-    "build": "browserify ./index.js | uglifyjs -c > docs/bundle.js"
+    "build": "browserify ./index.js | uglifyjs -b > docs/bundle.js",
+    "closure": "java -jar closure.jar --js docs/bundle.js --js_output_file docs/bundle.min.js"
   },
   "repository": {
     "type": "git",
