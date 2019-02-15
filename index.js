@@ -84,16 +84,17 @@ fetch('https://api.insti.app/api/locations')
   });
 
 /* Infobox animation */
-var square = document.querySelector('#infobox, #infobox *');
-var manager = new Hammer.Manager(square);
+var squares = document.querySelector('#infobox, #infobox *');
+var square = document.querySelector('#infobox');
+var manager = new Hammer.Manager(squares);
 var Swipe = new Hammer.Swipe();
 manager.add(Swipe);
 manager.on('swipe', function(e) {
-var direction = e.offsetDirection;
+    var direction = e.offsetDirection;
     if (direction === 8) {
-        e.target.classList.add("expanded");
+        square.classList.add("expanded");
     } else if (direction == 16) {
-        e.target.classList.remove("expanded");
+        square.classList.remove("expanded");
     }
 });
 
