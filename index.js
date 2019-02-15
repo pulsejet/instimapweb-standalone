@@ -71,7 +71,7 @@ fetch('https://api.insti.app/api/locations')
     InstiMap.getMap({
         mapPath: 'assets/map.jpg',
         mapMinPath: 'assets/map-min.jpg',
-        markersBase: '/assets/map/',
+        markersBase: 'assets/map/',
         attributions:'<a href="http://mrane.com/" target="_blank">Prof. Mandar Rane</a>',
         map_id: 'map',
         marker_id: 'marker',
