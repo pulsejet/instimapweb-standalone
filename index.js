@@ -78,7 +78,11 @@ fetch('https://api.insti.app/api/locations')
     }, locations, function(location) {
       locationSelected(location);
     }, function() {
-      console.log('map loaded');
+      document.querySelector('.loading-fader').style.display = 'none';
+      document.querySelectorAll('.hide-till-load').forEach(function(elem) {
+        elem.classList.remove('hide-till-load');
+      });
+      document.body.style.background = '#666'
     });
   });
 
