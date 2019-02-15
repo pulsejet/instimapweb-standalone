@@ -84,7 +84,7 @@ fetch('https://api.insti.app/api/locations')
   });
 
 /* Infobox animation */
-var square = document.querySelector('#infobox');
+var square = document.querySelector('#infobox, #infobox *');
 var manager = new Hammer.Manager(square);
 var Swipe = new Hammer.Swipe();
 manager.add(Swipe);
