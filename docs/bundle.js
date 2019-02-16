@@ -44,6 +44,12 @@
         function locSearch(query, cb) {
             cb(fuse.search(query).slice(0, 10));
         }
+        function getPassable(str) {
+            return str.toLowerCase().replace(" ", "-").replace(/^A-Za-z0-9\\-/, "");
+        }
+        function getQueryStringValue(key) {
+            return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+        }
         autocomplete("#search", {
             hint: true
         }, [ {
@@ -98,6 +104,16 @@
                     elem.classList.remove("hide-till-load");
                 });
                 document.body.style.background = "#666";
+                var query = getQueryStringValue("location");
+                if (query != null && query != undefined) {
+                    for (var i = 0; i < locations.length; i++) {
+                        if (getPassable(locations[i].short_name) == query) {
+                            InstiMap.moveToLocation(locations[i]);
+                            locationSelected(locations[i]);
+                            break;
+                        }
+                    }
+                }
             });
         });
         var squares = document.querySelector("#infobox, #infobox *");

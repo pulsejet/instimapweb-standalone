@@ -24,6 +24,17 @@ function locSearch(query, cb) {
     cb(fuse.search(query).slice(0, 10))
 }
 
+/** Gets a URL passable string after stripping spaces and special characters */
+function getPassable(str) {
+  return str.toLowerCase().replace(' ', '-').replace(/^A-Za-z0-9\\-/, '');
+}
+
+/** Get value of query parameter from key */
+function getQueryStringValue(key) {
+  return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+}
+
+
 autocomplete('#search', { hint: true }, [
     {
       source: locSearch,
@@ -76,13 +87,27 @@ fetch('https://api.insti.app/api/locations')
         marker_id: 'marker',
         user_marker_id: 'user-marker',
     }, locations, function(location) {
+      /* Location selected callback */
       locationSelected(location);
     }, function() {
+      /* Done loading */
       document.querySelector('.loading-fader').style.display = 'none';
       document.querySelectorAll('.hide-till-load').forEach(function(elem) {
         elem.classList.remove('hide-till-load');
       });
       document.body.style.background = '#666'
+
+      /* Check for initial location */
+      var query = getQueryStringValue('location')
+      if (query != null && query != undefined) {
+        for (var i = 0; i < locations.length; i++) {
+          if (getPassable(locations[i].short_name) == query) {
+            InstiMap.moveToLocation(locations[i]);
+            locationSelected(locations[i]);
+            break;
+          }
+        }
+      }
     });
   });
 
