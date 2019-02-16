@@ -50,6 +50,21 @@
         function getQueryStringValue(key) {
             return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
         }
+        function locationFromPassable(query) {
+            for (var i = 0; i < locations.length; i++) {
+                if (getPassable(locations[i].short_name) == query) {
+                    return locations[i];
+                }
+            }
+            return undefined;
+        }
+        function moveToPassable(query) {
+            var loc = locationFromPassable(query);
+            if (loc != undefined) {
+                InstiMap.moveToLocation(loc);
+                locationSelected(loc);
+            }
+        }
         autocomplete("#search", {
             hint: true
         }, [ {
@@ -106,13 +121,7 @@
                 document.body.style.background = "#666";
                 var query = getQueryStringValue("location");
                 if (query != null && query != undefined) {
-                    for (var i = 0; i < locations.length; i++) {
-                        if (getPassable(locations[i].short_name) == query) {
-                            InstiMap.moveToLocation(locations[i]);
-                            locationSelected(locations[i]);
-                            break;
-                        }
-                    }
+                    moveToPassable(query);
                 }
             });
         });

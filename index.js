@@ -34,6 +34,24 @@ function getQueryStringValue(key) {
   return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
 }
 
+/** Get location from passable name */
+function locationFromPassable(query) {
+  for (var i = 0; i < locations.length; i++) {
+    if (getPassable(locations[i].short_name) == query) {
+      return locations[i];
+    }
+  }
+  return undefined;
+}
+
+/** Move the marker to location from passable name */
+function moveToPassable(query) {
+  var loc = locationFromPassable(query);
+  if (loc != undefined) {
+    InstiMap.moveToLocation(loc);
+    locationSelected(loc);
+  }
+}
 
 autocomplete('#search', { hint: true }, [
     {
@@ -100,13 +118,7 @@ fetch('https://api.insti.app/api/locations')
       /* Check for initial location */
       var query = getQueryStringValue('location')
       if (query != null && query != undefined) {
-        for (var i = 0; i < locations.length; i++) {
-          if (getPassable(locations[i].short_name) == query) {
-            InstiMap.moveToLocation(locations[i]);
-            locationSelected(locations[i]);
-            break;
-          }
-        }
+        moveToPassable(query);
       }
     });
   });
@@ -128,4 +140,4 @@ manager.on('swipe', function(e) {
 
 document.getElementById('locfab').addEventListener('click', function() {
     InstiMap.getGPS();
-})
+});
