@@ -5557,15 +5557,21 @@
                 markerid = _config.marker_id;
             }
             var pos = [ Number(x), 3575 - Number(y) ];
-            var element = document.getElementById(markerid);
-            var marker = new overlay_1.default({
-                position: pos,
-                positioning: "bottom-center",
-                element: element,
-                stopEvent: false,
-                offset: [ 0, 0 ]
-            });
-            map.addOverlay(marker);
+            var overlay = map.getOverlayById(markerid);
+            if (overlay !== null) {
+                overlay.setPosition(pos);
+            } else {
+                var element = document.getElementById(markerid);
+                var marker = new overlay_1.default({
+                    id: markerid,
+                    position: pos,
+                    positioning: "bottom-center",
+                    element: element,
+                    stopEvent: false,
+                    offset: [ 0, 0 ]
+                });
+                map.addOverlay(marker);
+            }
             if (center) {
                 view.animate({
                     center: pos
