@@ -17,7 +17,7 @@
     "autocomplete.js": "^0.35.0",
     "fuse.js": "^3.4.2",
     "hammerjs": "^2.0.8",
-    "instimapweb": "^1.0.8"
+    "instimapweb": "^1.0.9"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",

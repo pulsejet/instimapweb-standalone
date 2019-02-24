@@ -148,6 +148,10 @@ manager.on('swipe', function(e) {
     }
 });
 
+InstiMap.addOnUserFollowingChangeListener(function (val) {
+  addClassConditional('locfab', val, 'active');
+});
+
 document.getElementById('locfab').addEventListener('click', function() {
     InstiMap.getGPS();
 });

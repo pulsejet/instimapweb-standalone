@@ -146,6 +146,9 @@
                 square.classList.remove("expanded");
             }
         });
+        InstiMap.addOnUserFollowingChangeListener(function(val) {
+            addClassConditional("locfab", val, "active");
+        });
         document.getElementById("locfab").addEventListener("click", function() {
             InstiMap.getGPS();
         });
@@ -5407,6 +5410,7 @@
         var imProjection;
         var attributions;
         var followingUser = false;
+        var followingUserCallback = null;
         var geoLocationId;
         var geoLocationLast;
         var showResidences = false;
@@ -5553,7 +5557,7 @@
                 }
             });
             map.on("pointerdrag", function() {
-                followingUser = false;
+                setFollowingUser(false);
             });
             return map;
         }
@@ -5619,7 +5623,7 @@
         exports.hasGeolocation = hasGeolocation;
         function getGPS(failedCallback) {
             if (hasGeolocation()) {
-                followingUser = true;
+                setFollowingUser(true);
                 if (geoLocationId != null) {
                     moveGPS(true);
                     return;
@@ -5664,6 +5668,16 @@
             return followingUser;
         }
         exports.isFollowingUser = isFollowingUser;
+        function setFollowingUser(val) {
+            if (followingUser === val) {
+                return;
+            }
+            followingUser = val;
+            if (followingUserCallback != undefined && followingUserCallback != null) {
+                followingUserCallback(followingUser);
+            }
+        }
+        exports.setFollowingUser = setFollowingUser;
         function getGeolocationLast() {
             return geoLocationLast;
         }
@@ -5674,6 +5688,10 @@
             }
         }
         exports.cleanup = cleanup;
+        function addOnUserFollowingChangeListener(callback) {
+            followingUserCallback = callback;
+        }
+        exports.addOnUserFollowingChangeListener = addOnUserFollowingChangeListener;
     }, {
         "ol/extent": 54,
         "ol/feature": 57,
