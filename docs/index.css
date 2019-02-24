@@ -56,14 +56,19 @@ body, html {
     display: none;
 }
 
-#locfab {
+#fabcontainer {
     position: fixed;
-    height: 50px; width: 50px;
-    right: 20px; bottom: 20px;
+    padding: 0; margin: 0;
+    right: 15px; bottom: 15px;
+    transition: all 200ms ease;
+}
+
+.fab {
+    bottom: 0; right: 0;
+    position: absolute;
     background: #ffd740;
     border-radius: 50%;
     transition: all 200ms ease;
-    padding: 0; margin: 0;
     z-index: 0;
     vertical-align: middle;
     cursor: pointer;
@@ -74,9 +79,30 @@ body, html {
     user-select: none; /* Standard syntax */
 }
 
-.locate {
+.fab.active {
+    background: #536dfe;
+}
+
+#locfab {
+    height: 50px; width: 50px;
+}
+
+#resfab {
+    height: 40px; width: 40px;
+    bottom: 60px;
+}
+
+.fab .icon {
     margin: 15.5px;
     height: 20px;
+}
+
+.fab.mini .icon {
+    margin: 10px;
+}
+
+.fab.active .icon {
+    filter: invert(1);
 }
 
 #locname {
@@ -137,7 +163,7 @@ body, html {
         transform: translateY(calc(-100% + 180px));
     }
 
-    #locfab.translate {
+    #fabcontainer.translate {
         transform: translateY(-80px);
     }
 }

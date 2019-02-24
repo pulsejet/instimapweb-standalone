@@ -5,6 +5,7 @@ var Hammer = require('hammerjs');
 
 var locations = [];
 var fuse;
+var residencesVisible = false;
 
 var fuse_options = {
     shouldSort: true,
@@ -53,6 +54,15 @@ function moveToPassable(query) {
   }
 }
 
+/** Add a class conditionally */
+function addClassConditional(id, condition, cls) {
+  if (condition) {
+    document.getElementById(id).classList.add(cls);
+  } else {
+    document.getElementById(id).classList.remove(cls);
+  }
+}
+
 autocomplete('#search', { hint: true }, [
     {
       source: locSearch,
@@ -71,7 +81,7 @@ autocomplete('#search', { hint: true }, [
 function locationSelected(loc) {
     if (loc == undefined) {
         document.getElementById('infobox').style.opacity = 0;
-        document.getElementById('locfab').classList.remove('translate');
+        document.getElementById('fabcontainer').classList.remove('translate');
         setTimeout(function() {
             document.getElementById('infobox').style.display = 'none';
             document.getElementById('locname').innerText = '';
@@ -79,7 +89,7 @@ function locationSelected(loc) {
         }, 300);
     } else {
         document.getElementById('infobox').style.display = 'block';
-        document.getElementById('locfab').classList.add('translate');
+        document.getElementById('fabcontainer').classList.add('translate');
         setTimeout(function() {
             document.getElementById('infobox').style.opacity = 1;
         }, 100);
@@ -140,4 +150,10 @@ manager.on('swipe', function(e) {
 
 document.getElementById('locfab').addEventListener('click', function() {
     InstiMap.getGPS();
+});
+
+document.getElementById('resfab').addEventListener('click', function() {
+  residencesVisible = !residencesVisible;
+  addClassConditional('resfab', residencesVisible, 'active');
+  InstiMap.setResidencesVisible(residencesVisible);
 });
