@@ -63,6 +63,7 @@ function addClassConditional(id, condition, cls) {
   }
 }
 
+/* Autocomplete setup */
 autocomplete('#search', { hint: true }, [
     {
       source: locSearch,
@@ -78,6 +79,7 @@ autocomplete('#search', { hint: true }, [
     locationSelected(suggestion);
   });
 
+/* Callback from map on location selection */
 function locationSelected(loc) {
     if (loc == undefined) {
         document.getElementById('infobox').style.opacity = 0;
@@ -98,6 +100,7 @@ function locationSelected(loc) {
     }
 }
 
+/* Main fetch and map setup */
 fetch('https://api.insti.app/api/locations')
   .then(function(response) {
     return response.json();
@@ -148,14 +151,17 @@ manager.on('swipe', function(e) {
     }
 });
 
+/* Hightlight fab on following user */
 InstiMap.addOnUserFollowingChangeListener(function (val) {
   addClassConditional('locfab', val, 'active');
 });
 
+/* Location fab click */
 document.getElementById('locfab').addEventListener('click', function() {
     InstiMap.getGPS();
 });
 
+/* Residences fab click */
 document.getElementById('resfab').addEventListener('click', function() {
   residencesVisible = !residencesVisible;
   addClassConditional('resfab', residencesVisible, 'active');
